@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 PetShop Amigo Fiel | Loja Online</title>
+    <!-- Font Awesome 6 (ícones gratuitos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------- RESET E ESTILOS GLOBAIS ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f9f7f3;
+            color: #2d2d2d;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ---------- VARIÁVEIS DE COR ---------- */
+        :root {
+            --primary: #3a7d6b;
+            --primary-light: #5a9e8c;
+            --primary-dark: #2a5e50;
+            --secondary: #f5b342;
+            --accent: #e07c5e;
+            --light-bg: #ffffff;
+            --card-bg: #ffffff;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            --border-radius: 16px;
+            --transition: 0.25s ease;
+        }
+
+        /* ---------- CABEÇALHO / NAVEGAÇÃO ---------- */
+        header {
+            background-color: var(--light-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #3d3d3d;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .cart-icon:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ---------- HERO / BANNER ---------- */
+        .hero {
+            background: linear-gradient(135deg, #eaf6f2, #d4e9e2);
+            padding: 3rem 2rem;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #446b60;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 14px rgba(58, 125, 107, 0.3);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(58, 125, 107, 0.4);
+        }
+
+        .hero-image {
+            flex: 1 1 300px;
+            font-size: 8rem;
+            text-align: center;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        /* ---------- TÍTULOS DE SEÇÃO ---------- */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin: 2.5rem 0 0.5rem;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #6b7b76;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* ---------- GRADE DE PRODUTOS ---------- */
+        .products-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0ede8;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-img {
+            background: #f2f7f5;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--primary);
+            padding: 1rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2d2d2d;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin: 0.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #8a9b96;
+            text-decoration: line-through;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: auto;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+        }
+
+        .add-to-cart i {
+            font-size: 1.1rem;
+        }
+
+        /* ---------- CARRINHO LATERAL (MODAL) ---------- */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: flex;
+            justify-content: flex-end;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-overlay.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .cart-panel {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.35s ease;
+        }
+
+        .cart-overlay.open .cart-panel {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-header h2 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #7a7a7a;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .close-cart:hover {
+            color: #d14b4b;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            background: #f9fbfa;
+            padding: 0.8rem 1rem;
+            border-radius: 14px;
+            border: 1px solid #e8f0ec;
+        }
+
+        .cart-item-icon {
+            font-size: 2.5rem;
+            background: #e3f0eb;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: var(--primary);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .cart-item-qty button {
+            background: white;
+            border: 1px solid #ccc;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-item-qty button:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cart-item-qty span {
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #c95c5c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 6px;
+            transition: var(--transition);
+        }
+
+        .remove-item:hover {
+            color: #a13a3a;
+            transform: scale(1.1);
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            background: #fcfcfc;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            color: #8f9e99;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .empty-cart-message i {
+            font-size: 3.5rem;
+            color: #cbdad4;
+        }
+
+        /* ---------- RODAPÉ ---------- */
+        footer {
+            background: #1e2e29;
+            color: #d4e2dd;
+            padding: 2.5rem 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #b8ccc5;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.6rem;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-icons a {
+            color: #b8ccc5;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #2f423c;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #96aca4;
+        }
+
+        /* ---------- RESPONSIVIDADE ---------- */
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .nav-icons {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-image {
+                font-size: 5rem;
+            }
+
+            .products-grid {
+                padding: 0 1rem 2rem;
+            }
+
+            .cart-panel {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-paw"></i> Amigo Fiel
+            </a>
+            <div class="nav-links">
+                <a href="#"><i class="fas fa-home"></i> Início</a>
+                <a href="#produtos"><i class="fas fa-store"></i> Loja</a>
+                <a href="#"><i class="fas fa-scissors"></i> Banho & Tosa</a>
+                <a href="#"><i class="fas fa-calendar-check"></i> Serviços</a>
+            </div>
+            <div class="nav-icons">
+                <button class="cart-icon" id="openCartBtn" aria-label="Abrir carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Tudo para o seu melhor amigo 🐶🐱</h1>
+                <p>Ração premium, brinquedos, banho e tosa com carinho. Compre online e receba em casa!</p>
+                <a href="#produtos" class="btn"><i class="fas fa-bag-shopping"></i> Ver produtos</a>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-dog"></i>
+                <i class="fas fa-cat" style="margin-left: 20px;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <h2 class="section-title" id="produtos">🛍️ Nossos produtos</h2>
+    <p class="section-sub">Escolha os melhores para seu pet</p>
+
+    <div class="products-grid" id="productsGrid">
+        <!-- Os produtos serão inseridos via JavaScript -->
+    </div>
+
+    <!-- CARRINHO LATERAL (OVERLAY) -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-basket"></i> Seu carrinho</h2>
+                <button class="close-cart" id="closeCartBtn">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Itens do carrinho aparecerão aqui -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">R$ 0,00</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">
+                    <i class="fas fa-check-circle"></i> Finalizar compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>🐾 PetShop Amigo Fiel</h4>
+                <p>Cuidando do seu pet com amor desde 2015.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Horários</h4>
+                <p>Seg–Sex: 8h às 19h</p>
+                <p>Sáb: 8h às 17h</p>
+                <p>Dom: Plantão</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p><i class="fas fa-phone"></i> (11) 99999-8888</p>
+                <p><i class="fas fa-envelope"></i> contato@amigofiel.com</p>
+                <p><i class="fas fa-map-pin"></i> Av. dos Bichos, 123</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 PetShop Amigo Fiel. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // ==================== DADOS DOS PRODUTOS ====================
+        const products = [
+            { id: 1, name: 'Ração Premium Adulto', category: 'Alimentação', price: 89.90, oldPrice: 119.90, icon: 'fa-dog', color: '#3a7d6b' },
+            { id: 2, name: 'Ração Gatos Castrados', category: 'Alimentação', price: 74.50, oldPrice: 99.90, icon: 'fa-cat', color: '#5a9e8c' },
+            { id: 3, name: 'Brinquedo Osso Resistente', category: 'Brinquedos', price: 34.90, oldPrice: 49.90, icon: 'fa-bone', color: '#e07c5e' },
+            { id: 4, name: 'Arranhador para Gatos', category: 'Acessórios', price: 129.90, oldPrice: 179.90, icon: 'fa-cat', color: '#f5b342' },
+            { id: 5, name: 'Coleira Peitoral', category: 'Acessórios', price: 49.90, oldPrice: 69.90, icon: 'fa-dog', color: '#2a5e50' },
+            { id: 6, name: 'Shampoo Neutro 500ml', category: 'Higiene', price: 32.90, oldPrice: 44.90, icon: 'fa-soap', color: '#4a9e8c' },
+            { id: 7, name: 'Cama Pet Macia', category: 'Conforto', price: 159.90, oldPrice: 219.90, icon: 'fa-bed', color: '#b87c4b' },
+            { id: 8, name: 'Petiscos Naturais', category: 'Alimentação', price: 27.90, oldPrice: 39.90, icon: 'fa-cookie', color: '#e6a45e' }
+        ];
+
+        // ==================== ESTADO DO CARRINHO ====================
+        let cart = [];  // cada item: { id, name, price, icon, quantity }
+
+        // ==================== ELEMENTOS DO DOM ====================
+        const productsGrid = document.getElementById('productsGrid');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const openCartBtn = document.getElementById('openCartBtn');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartTotalEl = document.getElementById('cartTotal');
+        const cartCountEl = document.getElementById('cartCount');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // ==================== RENDERIZAR PRODUTOS ====================
+        function renderProducts() {
+            productsGrid.innerHTML = products.map(product => {
+                // Formatar preços
+                const priceFormatted = product.price.toFixed(2).replace('.', ',');
+                const oldPriceFormatted = product.oldPrice ? product.oldPrice.toFixed(2).replace('.', ',') : null;
+
+                return `
+                    <div class="product-card" data-id="${product.id}">
+                        <div class="product-img" style="color: ${product.color};">
+                            <i class="fas ${product.icon}"></i>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">${product.category}</span>
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-price">
+                                R$ ${priceFormatted}
+                                ${oldPriceFormatted ? `<small>R$ ${oldPriceFormatted}</small>` : ''}
+                            </div>
+                            <button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-cart-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Adicionar event listeners aos botões "Adicionar"
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = Number(button.getAttribute('data-id'));
+                    addToCart(id);
+                });
+            });
+        }
+
+        // ==================== FUNÇÕES DO CARRINHO ====================
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    icon: product.icon,
+                    quantity: 1
+                });
+            }
+            updateCartUI();
+            // Pequeno feedback visual: abrir o carrinho? (opcional)
+            // openCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function changeQuantity(productId, delta) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+
+            const newQuantity = item.quantity + delta;
+            if (newQuantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                item.quantity = newQuantity;
+                updateCartUI();
+            }
+        }
+
+        function calculateTotal() {
+            return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        function updateCartUI() {
+            // Atualizar contador do ícone do carrinho
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountEl.textContent = totalItems;
+
+            // Renderizar itens do carrinho
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart-message">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>Seu carrinho está vazio</p>
+                        <p style="font-size: 0.95rem;">Adicione produtos para continuar</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => {
+                    const itemTotal = (item.price * item.quantity).toFixed(2).replace('.', ',');
+                    return `
+                        <div class="cart-item" data-id="${item.id}">
+                            <div class="cart-item-icon">
+                                <i class="fas ${item.icon}"></i>
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
+                                <div class="cart-item-qty">
+                                    <button class="qty-btn" data-id="${item.id}" data-delta="-1">−</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
+                                    <button class="remove-item" data-id="${item.id}" style="margin-left: auto;"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Adicionar eventos aos botões de quantidade e remover
+                document.querySelectorAll('.qty-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = Number(btn.getAttribute('data-id'));
+                        const delta = Number(btn.getAttribute('data-delta'));
+                        changeQuantity(id, delta);
+                    });
+                });
+
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = Number(btn.getAttribute('data-id'));
+                        removeFromCart(id);
+                    });
+                });
+            }
+
+            // Atualizar total
+            const total = calculateTotal();
+            cartTotalEl.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        // ==================== ABRIR / FECHAR CARRINHO ====================
+        function openCart() {
+            cartOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            cartOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        openCartBtn.addEventListener('click', openCart);
+        closeCartBtn.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', (e) => {
+            if (e.target === cartOverlay) closeCart();
+        });
+
+        // Finalizar compra (simulação)
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio. Adicione produtos antes de finalizar.');
+                return;
+            }
+            const total = calculateTotal().toFixed(2).replace('.', ',');
+            alert(`🐾 Pedido finalizado!\nTotal: R$ ${total}\n\nObrigado por comprar no PetShop Amigo Fiel!`);
+            cart = [];
+            updateCartUI();
+            closeCart();
+        });
+
+        // Fechar carrinho com tecla ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && cartOverlay.classList.contains('open')) {
+                closeCart();
+            }
+        });
+
+        // ==================== INICIALIZAÇÃO ====================
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
